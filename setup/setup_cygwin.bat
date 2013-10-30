@@ -4,8 +4,10 @@
 : Variable
 :--------------------------------------------------------------------
 
-: sh
-set SH_EXE=C:\cygwin\bin\sh.exe
+: cygwin directory
+set CYGWIN_DIR=C:\cygwin
+: sh exe
+set SH_EXE=%CYGWIN_DIR%\bin\sh.exe
 
 :--------------------------------------------------------------------
 : Process
@@ -14,18 +16,20 @@ set SH_EXE=C:\cygwin\bin\sh.exe
 : Start main process
 pushd %~dp0
 
-echo "Start."
+echo Start
 
 : cygwin
 if not exist "%SH_EXE%" (
-  echo "Setup cygwin."
+  echo Setup cygwin
   start http://cygwin.com/setup-x86.exe
-  echo "Press any key after installed Cygwin manually."
-  echo "Select packages 'bzip2', 'wget', 'curl' for install"
+  echo Press any key after installed Cygwin manually.
+  echo   Select packages 'Shells/zsh', 'Utils/bzip2', 'Web/wget' to install
   pause
+
+  copy mintty.lnk "%CYGWIN_DIR%\"
 )
 
-echo "Complete."
+echo Complete
 
 popd
 exit /b
